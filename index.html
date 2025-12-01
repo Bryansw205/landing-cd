@@ -10,11 +10,11 @@
     /* --- VARIABLES --- */
     :root {
       --bg-dark: #222222;
-      --bg-darker: #1a1a1a; /* Nuevo: para el footer y contraste */
+      --bg-darker: #1a1a1a; 
       --bg-orange: #FFA500;
       --text-light: #FFFFFF;
       --text-dark: #1a1a1a;
-      --text-subtle: #555555; /* Nuevo: para el texto del footer */
+      --text-subtle: #555555;
     }
 
     body { 
@@ -34,6 +34,7 @@
     @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes floatImage { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
     @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 70% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes glowPulse { 0% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.2); } 50% { box-shadow: 0 0 40px rgba(255, 165, 0, 0.5); } 100% { box-shadow: 0 0 20px rgba(255, 165, 0, 0.2); } }
 
     .animate-slide { opacity: 0; animation: slideInRight 1s ease forwards; animation-delay: 0.3s; }
     .animate-float { animation: floatImage 6s ease-in-out infinite; }
@@ -102,7 +103,7 @@
     .feature-card h3 { font-size: 22px; margin-bottom: 15px; color: #fff; font-weight: 700; }
     .feature-card p { color: #bbb; font-size: 16px; line-height: 1.6; }
 
-    /* --- VENTAJA (REDISEÑADA) --- */
+    /* --- VENTAJA --- */
     .advantage-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -112,7 +113,6 @@
     .advantage-item {
       text-align: center;
       padding: 40px 30px;
-      /* Un fondo oscuro sutil con borde naranja muy fino */
       background: linear-gradient(145deg, #2a2a2a, #222);
       border-radius: 30px;
       border: 1px solid rgba(255, 165, 0, 0.1);
@@ -122,141 +122,81 @@
         transform: translateY(-10px);
         border-color: rgba(255, 165, 0, 0.3);
     }
-    /* Círculo para el icono */
     .advantage-icon-box {
       width: 80px; height: 80px; background: var(--bg-orange); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 25px auto;
       box-shadow: 0 10px 20px rgba(255, 165, 0, 0.2);
     }
-    .advantage-icon { width: 40px; height: 40px; filter: brightness(0) invert(0.1); /* Icono oscuro */ }
-    
+    .advantage-icon { width: 40px; height: 40px; filter: brightness(0) invert(0.1); }
     .advantage-item h3 { color: var(--bg-orange); font-size: 22px; margin-bottom: 15px; font-weight: 700;}
     .advantage-item p { color: #ccc; line-height: 1.6; font-size: 16px; }
 
-
-    /* --- FRAME DEL MÓVIL (REDISEÑADO) --- */
+    /* --- FRAME DEL MÓVIL --- */
     .mobile-frame {
         width: 310px;
         height: 640px;
         background: linear-gradient(145deg, #1e1e1e, #111);
         border-radius: 50px;
         padding: 14px;
-        box-shadow: 0px 40px 80px -20px rgba(0,0,0,0.5), 
-                    inset 0 0 15px rgba(255,255,255,0.05),
-                    inset 0 2px 2px rgba(255,255,255,0.1),
-                    inset 0 -2px 2px rgba(0,0,0,0.3);
+        box-shadow: 0px 40px 80px -20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.05);
         margin: auto;
         position: relative;
         transition: all 0.4s ease;
     }
-    .mobile-frame:hover {
-        transform: scale(1.02);
-        box-shadow: 0px 50px 100px -20px rgba(0,0,0,0.4), 
-                    inset 0 0 15px rgba(255,255,255,0.05),
-                    inset 0 2px 2px rgba(255,255,255,0.1),
-                    inset 0 -2px 2px rgba(0,0,0,0.3);
+    .mobile-frame:hover { transform: scale(1.02); }
+    .mobile-screen { background: #000; height: 100%; width: 100%; border-radius: 36px; overflow: hidden; position: relative; }
+    .mobile-screen iframe { width: 100%; height: 100%; border: none; }
+    .mobile-home-bar {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); width: 140px; height: 5px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; z-index: 10;
     }
 
-    .mobile-screen {
-        background: #000;
-        height: 100%;
-        width: 100%;
-        border-radius: 36px;
-        overflow: hidden;
-        position: relative;
+    /* --- NUEVO: ESTILO SECCIÓN VIDEO --- */
+    .video-container-style {
+        max-width: 900px;
+        margin: 60px auto 0;
+        border-radius: 24px;
+        padding: 10px;
+        background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+        /* Brillo sutil naranja animado */
+        animation: glowPulse 4s infinite ease-in-out;
+        border: 1px solid rgba(255, 165, 0, 0.1);
     }
-    .mobile-screen iframe {
+    
+.video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* Ratio 16:9 */
+        height: 0;
+        overflow: hidden; /* IMPORTANTE: Esto recorta lo que sobresalga de los bordes */
+        border-radius: 20px; /* Redondeo del contenedor */
+        background: #000;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    }
+    
+    .video-wrapper iframe, 
+    .video-wrapper video {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         border: none;
+        border-radius: 20px; /* Forzamos redondeo también en el video */
+        object-fit: cover;   /* IMPORTANTE: Hace que la portada llene todo el espacio sin deformarse */
     }
-    /* Notch dinámico (como una isla) 
-    .mobile-notch {
-        position: absolute;
-        top: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 130px;
-        height: 30px;
-        background: #000;
-        border-radius: 20px;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    .notch-camera {
-        width: 12px; 
-        height: 12px; 
-        background: #252525; 
-        border-radius: 50%;
-        border: 2px solid #333;
-    }
-    .notch-speaker {
-        width: 50px; 
-        height: 8px; 
-        background: #151515; 
-        border-radius: 5px;
-    }
-    
-    /* Barra de Home para un look más moderno */
-    .mobile-home-bar {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 10px;
-      z-index: 10;
-    }
-
-    /* --- FIGMA & CTA --- */
-    .figma-container { background: #2a2a2a; padding: 20px; border-radius: 24px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-    iframe { border-radius: 16px; border: none; width: 100%; height: 500px; }
-
+    /* --- CTA --- */
     .cta-container { text-align: center; padding: 120px 20px; }
     .btn-secondary { background-color: var(--bg-orange); color: var(--text-dark); padding: 20px 60px; border-radius: 50px; font-weight: 800; font-size: 18px; display: inline-block; margin-top: 30px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); }
     .btn-secondary:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(255, 165, 0, 0.5); background-color: #ffb01f; }
 
-    /* --- FOOTER Y REDES SOCIALES (NUEVO) --- */
-    footer {
-      background: var(--bg-darker); /* Fondo un poco más oscuro para el footer */
-      padding: 60px 20px 40px;
-      text-align: center;
-    }
-
-    .social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        margin-bottom: 40px;
-    }
-    .social-icon {
-        display: inline-block;
-        transition: transform 0.3s ease;
-    }
-    .social-icon img {
-        width: 24px; height: 24px;
-        /* Filtro para que los iconos negros se vean blancos y sutiles */
-        filter: invert(1) opacity(0.4);
-        transition: all 0.3s ease;
-    }
+    /* --- FOOTER --- */
+    footer { background: var(--bg-darker); padding: 60px 20px 40px; text-align: center; }
+    .social-icons { display: flex; justify-content: center; gap: 25px; margin-bottom: 40px; }
+    .social-icon { display: inline-block; transition: transform 0.3s ease; }
+    .social-icon img { width: 24px; height: 24px; filter: invert(1) opacity(0.4); transition: all 0.3s ease; }
     .social-icon:hover { transform: scale(1.1); }
-    /* Al hacer hover, el icono se vuelve naranja brillante */
-    .social-icon:hover img {
-        filter: invert(67%) sepia(61%) saturate(1698%) hue-rotate(348deg) brightness(101%) contrast(101%) opacity(1);
-    }
-
-    .copyright-text {
-        color: var(--text-subtle); /* Color muy sutil, casi como el fondo */
-        font-size: 14px;
-        font-weight: 300;
-    }
+    .social-icon:hover img { filter: invert(67%) sepia(61%) saturate(1698%) hue-rotate(348deg) brightness(101%) contrast(101%) opacity(1); }
+    .copyright-text { color: var(--text-subtle); font-size: 14px; font-weight: 300; }
 
     /* --- RESPONSIVE --- */
     @media (max-width: 900px) {
@@ -386,6 +326,23 @@
     </div>
   </section>
 
+<section id="video-promo">
+    <div style="text-align: center;">
+        <h2 class="section-title">Ghosthy en Acción</h2>
+        <p class="text-muted">Descubre la experiencia completa en menos de un minuto.</p>
+        
+        <div class="video-container-style scroll-animate">
+            <div class="video-wrapper">
+                
+                <video controls playsinline poster="portada-ghosty.png">
+                    <source src="GHOSTY.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+
+            </div>
+        </div>
+    </div>
+  </section>
   <div class="cta-container" id="cta">
     <h2 class="section-title" style="color:white;">Sé de los primeros en probarla</h2>
     <p class="text-muted">La app estará disponible pronto en iOS y Android.</p>
